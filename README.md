@@ -10,6 +10,7 @@ PAPER REF HERE
 
 In order to run all of these you will need:
 
+- A fair bit of working HD space (think 400GB+)
 - SRA tools (https://github.com/ncbi/sra-tools/wiki/Downloads)
 - bedtools (https://github.com/arq5x/bedtools2)
 - bismark (http://www.bioinformatics.babraham.ac.uk/projects/bismark/)

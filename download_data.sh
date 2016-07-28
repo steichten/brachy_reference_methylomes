@@ -12,6 +12,11 @@ wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR197/SRR
 wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR197/SRR1972499/SRR1972499.sra #BdTR12c
 wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR197/SRR1972500/SRR1972500.sra #Koz-3
 
+for FILE in *.sra
+do
+fastq-dump --gzip --split-files --readids --skip-technical --dumpbase --clip $FILE
+rm $FILE
+done
 
 cd ../
 #get 14 replicate samples of Bd1-1, Bd21, and Bd3-1 from NCBI SRA
@@ -32,12 +37,19 @@ wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR247/SRR
 wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR247/SRR2475402/SRR2475402.sra #3-1 rep4
 wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR247/SRR2475403/SRR2475403.sra #3-1 rep5
 
+for FILE in *.sra
+do
+fastq-dump --gzip --split-files --readids --skip-technical --dumpbase --clip $FILE
+rm $FILE
+done
+
+
 cd ../
 #download the SNP data from Gordon et al., 2014 Brachypodium genomic resequencing paper
 mkdir reference_snp_data
 cd reference_snp_data
-wget ftp://brachypodium.org/brachypodium.org/NaturalVariation/Bd21-3/Resequencing/Bd21-3.r_OSU_JGI_GFF_intersect_filt.gff
-wget ftp://brachypodium.org/brachypodium.org/NaturalVariation/Bd21-3/Resequencing/Bd21-3.r_OSU_JGI_GFF_intersect_filt.gff
+
+#TBD as brachypodium.org is down now....
 
 
-wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR197/SRR1972494/SRR1972494.sra
+
