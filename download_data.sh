@@ -1,6 +1,12 @@
 mkdir rawdata
 cd rawdata
 
+#download the reference SNP-corrected psudo-resequenced genomes:
+mkdir genomes
+cd genomes
+
+
+
 #get the seven reference methylomes (single replicates) from NCBI SRA
 mkdir reference_methylomes
 cd reference_methylomes
