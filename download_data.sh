@@ -18,6 +18,28 @@ fastq-dump --gzip --split-files --readids --skip-technical --dumpbase --clip $FI
 rm $FILE
 done
 
+mv SRR1972494_1.fastq.gz Bd21_R1.fastq.gz
+mv SRR1972494_2.fastq.gz Bd21_R2.fastq.gz
+
+mv SRR1972495_1.fastq.gz Bd21-3_R1.fastq.gz
+mv SRR1972495_2.fastq.gz Bd21-3_R2.fastq.gz
+
+mv SRR1972496_1.fastq.gz Bd3-1_R1.fastq.gz
+mv SRR1972496_2.fastq.gz Bd3-1_R2.fastq.gz
+
+mv SRR1972497_1.fastq.gz Bd30-1_R1.fastq.gz
+mv SRR1972497_2.fastq.gz Bd30-1_R2.fastq.gz
+
+mv SRR1972498_1.fastq.gz Bd1-1_R1.fastq.gz
+mv SRR1972498_2.fastq.gz Bd1-1_R2.fastq.gz
+
+mv SRR1972499_1.fastq.gz BdTR12c_R1.fastq.gz
+mv SRR1972499_2.fastq.gz BdTR12c_R2.fastq.gz
+
+mv SRR1972500_1.fastq.gz Koz-3_R1.fastq.gz
+mv SRR1972500_2.fastq.gz Koz-3_R2.fastq.gz
+
+
 cd ../
 #get 14 replicate samples of Bd1-1, Bd21, and Bd3-1 from NCBI SRA
 mkdir replicate_methylomes
@@ -43,8 +65,29 @@ fastq-dump --gzip --split-files --readids --skip-technical --dumpbase --clip $FI
 rm $FILE
 done
 
+mv SRR2475390_1.fastq.gz Bd1-1_rep1.fastq.gz
+mv SRR2475391_1.fastq.gz Bd1-1_rep2.fastq.gz
+mv SRR2475392_1.fastq.gz Bd1-1_rep3.fastq.gz
+mv SRR2475393_1.fastq.gz Bd1-1_rep4.fastq.gz
+mv SRR2475394_1.fastq.gz Bd1-1_rep5.fastq.gz
+mv SRR2475395_1.fastq.gz Bd21_rep1.fastq.gz
+mv SRR2475396_1.fastq.gz Bd21_rep2.fastq.gz
+mv SRR2475397_1.fastq.gz Bd21_rep3.fastq.gz
+mv SRR2475398_1.fastq.gz Bd21_rep4.fastq.gz
+mv SRR2475399_1.fastq.gz Bd21_rep5.fastq.gz
+#note Bd3-1_rep1 does not exist (failed sample, no library, not sequenced, no SRA run)
+mv SRR2475400_1.fastq.gz Bd3-1_rep2.fastq.gz
+mv SRR2475401_1.fastq.gz Bd3-1_rep3.fastq.gz
+mv SRR2475402_1.fastq.gz Bd3-1_rep4.fastq.gz
+mv SRR2475403_1.fastq.gz Bd3-1_rep5.fastq.gz
+
+
+
+
 
 cd ../
+
+
 #download the SNP data from Gordon et al., 2014 Brachypodium genomic resequencing paper
 mkdir reference_snp_data
 cd reference_snp_data
@@ -53,6 +96,11 @@ cd reference_snp_data
 
 wget https://www.dropbox.com/s/dol2ykdpyunw5y1/Bdistachyon_283.vcf.gz
 
-cd ../
+cd ../../
+
+#confirm data files are as expected
+shasum -c rawdata_shasums.sha
+
+
 
 
