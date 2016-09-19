@@ -96,6 +96,37 @@ cd reference_snp_data
 
 wget https://www.dropbox.com/s/dol2ykdpyunw5y1/Bdistachyon_283.vcf.gz
 
+cd ../
+
+#download SNP-corrected reference genomes for B. distachyon (based on v2.1 I believe)
+
+#Once again, TBD as their public location seems to be gone...
+
+mkdir genomes
+cd genomes
+wget https://dl.dropboxusercontent.com/u/4289891/Bd1-1_SNPincorp_sgr1_genome.fa
+wget https://dl.dropboxusercontent.com/u/4289891/Bd21-3_r_SNPincorp_sgr1_genome.fa
+wget https://dl.dropboxusercontent.com/u/4289891/Bd21Control_SNPincorp_sgr1_genome.fa
+wget https://dl.dropboxusercontent.com/u/4289891/Bd3-1_r_SNPincorp_sgr1_genome.fa
+wget https://dl.dropboxusercontent.com/u/4289891/Bd30-1_SNPincorp_sgr1_genome.fa
+wget https://dl.dropboxusercontent.com/u/4289891/BdTR12c_SNPincorp_sgr1_genome.fa
+wget https://dl.dropboxusercontent.com/u/4289891/Koz-3_SNPincorp_sgr1_genome.fa
+
+mkdir Bd21
+mv Bd21Control_SNPincorp_sgr1_genome.fa Bd21/Bd21Control_SNPincorp_sgr1_genome.fa
+mkdir Bd21-3
+mv Bd21-3_r_SNPincorp_sgr1_genome.fa Bd21-3/Bd21-3_r_SNPincorp_sgr1_genome.fa
+mkdir Bd3-1
+mv Bd3-1_r_SNPincorp_sgr1_genome.fa Bd3-1/Bd3-1_r_SNPincorp_sgr1_genome.fa
+mkdir Bd30-1
+mv Bd30-1_SNPincorp_sgr1_genome.fa Bd30-1/Bd30-1_SNPincorp_sgr1_genome.fa
+mkdir Bd1-1
+mv Bd1-1_SNPincorp_sgr1_genome.fa Bd1-1/Bd1-1_SNPincorp_sgr1_genome.fa
+mkdir BdTR12c
+mv BdTR12c_SNPincorp_sgr1_genome.fa BdTR12c/BdTR12c_SNPincorp_sgr1_genome.fa
+mkdir Koz-3
+mv Koz-3_SNPincorp_sgr1_genome.fa Koz-3/Koz-3_SNPincorp_sgr1_genome.fa
+
 cd ../../
 
 #confirm data files are as expected

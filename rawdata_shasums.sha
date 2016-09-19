@@ -26,4 +26,11 @@ c816fff9fa44117a4bdf3d701631079e7ff7e6fe  rawdata/replicate_methylomes/Bd3-1_rep
 0012c156666d0a38484a8ad91337f6cd9a341865  rawdata/replicate_methylomes/Bd3-1_rep3.fastq.gz
 867686479b3d9297d3e13bac7844c42e153e35f6  rawdata/replicate_methylomes/Bd3-1_rep4.fastq.gz
 dddf07bd77ffe7dde1989e0460846673ea253413  rawdata/replicate_methylomes/Bd3-1_rep5.fastq.gz
+ed530c1438af350c86b8905dbb2ba14b81f2166b  rawdata/genomes/Bd1-1/Bd1-1_SNPincorp_sgr1_genome.fa
+4b66dc56dbb0685149e86f4fc2975e2038720738  rawdata/genomes/Bd21-3/Bd21-3_r_SNPincorp_sgr1_genome.fa
+54251f6491554fc84d9b9cc2fe7a4182195e5ab6  rawdata/genomes/Bd21/Bd21Control_SNPincorp_sgr1_genome.fa
+22180717e45c8946085d37261587c182d5146800  rawdata/genomes/Bd30-1/Bd30-1_SNPincorp_sgr1_genome.fa
+a922591c16275b1113157dd5efe52a5f90389338  rawdata/genomes/Bd3-1/Bd3-1_r_SNPincorp_sgr1_genome.fa
+cb6125b43765c5512586ea3218d9f114b266088b  rawdata/genomes/BdTR12c/BdTR12c_SNPincorp_sgr1_genome.fa
+67890f170272ca76e4d9e68c6f6042239ff0d0aa  rawdata/genomes/Koz-3/Koz-3_SNPincorp_sgr1_genome.fa
 a2981e9d8c671dfd1ff6d32736001b44d0771081  rawdata/reference_snp_data/Bdistachyon_283.vcf.gz
