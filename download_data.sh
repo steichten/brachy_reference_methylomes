@@ -94,8 +94,11 @@ cd reference_snp_data
 
 #TBD as brachypodium.org is down now....
 
+#v2.1 genome data
 wget https://www.dropbox.com/s/dol2ykdpyunw5y1/Bdistachyon_283.vcf.gz
 
+#v1.2 genome data
+wget https://dl.dropboxusercontent.com/u/4289891/Bdistachyon_192-GATK_filtered.vcf.gz
 cd ../
 
 #download SNP-corrected reference genomes for B. distachyon (based on v2.1 I believe)
@@ -104,13 +107,17 @@ cd ../
 
 mkdir genomes
 cd genomes
-wget https://dl.dropboxusercontent.com/u/4289891/Bd1-1_SNPincorp_sgr1_genome.fa
-wget https://dl.dropboxusercontent.com/u/4289891/Bd21-3_r_SNPincorp_sgr1_genome.fa
-wget https://dl.dropboxusercontent.com/u/4289891/Bd21Control_SNPincorp_sgr1_genome.fa
-wget https://dl.dropboxusercontent.com/u/4289891/Bd3-1_r_SNPincorp_sgr1_genome.fa
-wget https://dl.dropboxusercontent.com/u/4289891/Bd30-1_SNPincorp_sgr1_genome.fa
-wget https://dl.dropboxusercontent.com/u/4289891/BdTR12c_SNPincorp_sgr1_genome.fa
-wget https://dl.dropboxusercontent.com/u/4289891/Koz-3_SNPincorp_sgr1_genome.fa
+
+#files found on mockler ftp site that likely pulled from old brachypodium.org
+#ftp://mocklerlab.org/brachypodium.org/NaturalVariation/
+#files downloaded again Sept 20th, 2016 8:05am AEST
+wget ftp://mocklerlab.org/brachypodium.org/NaturalVariation/Bd1-1/Bd1-1_SNPincorp_sgr1_genome.fa
+wget ftp://mocklerlab.org/brachypodium.org/NaturalVariation/Bd21-3/Bd21-3_r_SNPincorp_sgr1_genome.fa
+wget ftp://mocklerlab.org/brachypodium.org/NaturalVariation/Bd21Control/Bd21Control_SNPincorp_sgr1_genome.fa
+wget ftp://mocklerlab.org/brachypodium.org/NaturalVariation/Bd3-1/Bd3-1_r_SNPincorp_sgr1_genome.fa
+wget ftp://mocklerlab.org/brachypodium.org/NaturalVariation/Bd30-1/Bd30-1_SNPincorp_sgr1_genome.fa
+wget ftp://mocklerlab.org/brachypodium.org/NaturalVariation/BdTR12c/BdTR12c_SNPincorp_sgr1_genome.fa
+wget ftp://mocklerlab.org/brachypodium.org/NaturalVariation/Koz-3/Koz-3_SNPincorp_sgr1_genome.fa
 
 mkdir Bd21
 mv Bd21Control_SNPincorp_sgr1_genome.fa Bd21/Bd21Control_SNPincorp_sgr1_genome.fa
@@ -128,6 +135,19 @@ mkdir Koz-3
 mv Koz-3_SNPincorp_sgr1_genome.fa Koz-3/Koz-3_SNPincorp_sgr1_genome.fa
 
 cd ../../
+
+#the SNP-corrected genomes are from the Bdistachyon v1.2 genome release (Phytozome 9??)
+mkdir annotations
+cd annotations
+
+curl 'https://signon.jgi.doe.gov/signon/create' --data-urlencode 'login=steven.eichten@anu.edu.au' --data-urlencode 'password=qwerty12' -c cookies > /dev/null
+curl 'http://genome.jgi.doe.gov/ext-api/downloads/get-directory?organism=PhytozomeV9' -b cookies > files.xml
+curl 'http://genome.jgi.doe.gov/ext-api/downloads/get_tape_file?blocking=true&url=/PhytozomeV9/download/_JAMO/52b9c942166e730e43a350bc/Bdistachyon_192_gene.gff3.gz' -b cookies > Bdistachyon_192_gene.gff.gz
+curl 'http://genome.jgi.doe.gov/ext-api/downloads/get_tape_file?blocking=true&url=/PhytozomeV9/download/_JAMO/52b9c942166e730e43a350bd/Bdistachyon_192_gene_exons.gff3.gz' -b cookies > Bdistachyon_192_gene_exons.gff3.gz
+rm cookies
+
+
+
 
 #confirm data files are as expected
 shasum -c rawdata_shasums.sha
