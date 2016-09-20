@@ -34,6 +34,6 @@ a922591c16275b1113157dd5efe52a5f90389338  rawdata/genomes/Bd3-1/Bd3-1_r_SNPincor
 cb6125b43765c5512586ea3218d9f114b266088b  rawdata/genomes/BdTR12c/BdTR12c_SNPincorp_sgr1_genome.fa
 67890f170272ca76e4d9e68c6f6042239ff0d0aa  rawdata/genomes/Koz-3/Koz-3_SNPincorp_sgr1_genome.fa
 ad28ed83a2e44bc22a17c935611327f65c358349  rawdata/annotations/Bdistachyon_192_gene_exons.gff3.gz
-b2af56b21bdf3038555669d2c2311b2570b16cef  rawdata/annotations/Bdistachyon_192_gene.gff.gz
+b2af56b21bdf3038555669d2c2311b2570b16cef  rawdata/annotations/Bdistachyon_192_gene.gff3.gz
 a2981e9d8c671dfd1ff6d32736001b44d0771081  rawdata/reference_snp_data/Bdistachyon_283.vcf.gz
 8ae6596e2933b8943848fb87700ea16e194c3faa  rawdata/reference_snp_data/Bdistachyon_192-GATK_filtered.vcf.gz
