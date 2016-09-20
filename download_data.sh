@@ -134,12 +134,13 @@ mv BdTR12c_SNPincorp_sgr1_genome.fa BdTR12c/BdTR12c_SNPincorp_sgr1_genome.fa
 mkdir Koz-3
 mv Koz-3_SNPincorp_sgr1_genome.fa Koz-3/Koz-3_SNPincorp_sgr1_genome.fa
 
-cd ../../
+cd ../
 
 #the SNP-corrected genomes are from the Bdistachyon v1.2 genome release (Phytozome 9??)
 mkdir annotations
 cd annotations
 
+#gene annotations pulled from phytozome using download API
 curl 'https://signon.jgi.doe.gov/signon/create' --data-urlencode 'login=steven.eichten@anu.edu.au' --data-urlencode 'password=qwerty12' -c cookies > /dev/null
 curl 'http://genome.jgi.doe.gov/ext-api/downloads/get-directory?organism=PhytozomeV9' -b cookies > files.xml
 curl 'http://genome.jgi.doe.gov/ext-api/downloads/get_tape_file?blocking=true&url=/PhytozomeV9/download/_JAMO/52b9c942166e730e43a350bc/Bdistachyon_192_gene.gff3.gz' -b cookies > Bdistachyon_192_gene.gff3.gz
@@ -148,12 +149,13 @@ rm cookies
 
 #TRANSPOSON DATA
 # http://pgsb.helmholtz-muenchen.de/plant/brachypodium/download/index.jsp
+#accessed Sept 20th, 2016
 #built on v1.2 of B distacyhon genome
 
 wget ftp://ftpmips.helmholtz-muenchen.de/plants/brachypodium/repeats/MIPS_Bd_Transposons_v2.2_16-07-2009.gff3.gz
 wget ftp://ftpmips.helmholtz-muenchen.de/plants/brachypodium/repeats/MIPS_Bd_tandemRepeats_01-04-2009.gff3.gz
 
-
+cd ../../
 
 #confirm data files are as expected
 shasum -c rawdata_shasums.sha
