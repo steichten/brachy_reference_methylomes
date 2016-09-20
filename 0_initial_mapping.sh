@@ -15,8 +15,8 @@ bismark_genome_preparation rawdata/genomes/Koz-3/ &
 #perform alignments
 #note that this takes some time (days). It could likely be done better given the power of your machine and running things in parallel
 
-mkdir reference_alignments
-cd reference_alignments
+mkdir 0_initial_mapping
+cd r0_initial_mapping
 
 cp ../rawdata/reference_methylomes/Bd21_R1.fastq.gz .
 cp ../rawdata/reference_methylomes/Bd21_R2.fastq.gz .
