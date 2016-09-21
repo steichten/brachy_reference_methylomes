@@ -1,5 +1,6 @@
 
-
+#1_Bd21_analysis
+#Sept 2016
 #make total cytosine site count 100bp tiles for the entire Bd21 genome
 cd rawdata/genomes/Bd21/
 samtools faidx Bd21Control_SNPincorp_sgr1_genome.fa
