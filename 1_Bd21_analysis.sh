@@ -10,13 +10,13 @@ mkdir 1_Bd21_analysis
 cd 1_Bd21_analysis
 
 
-coverage2cytosine --genome_folder ../rawdata/genomes/Bd21/ -CX --zero_based ../reference_alignments/Bd21_wgbspipeline_2016-09-20-14-09-31/5_output_files/Bd21_CpG.bed.bismark.cov -o allcytosines.txt
+coverage2cytosine --genome_folder ../rawdata/genomes/Bd21/ -CX ../reference_alignments/Bd21_wgbspipeline_2016-09-20-14-09-31/5_output_files/Bd21_CpG.bed.bismark.cov -o allcytosines.txt
 
 grep -P "\tCG\t" allcytosines.txt | awk '{print $1 "\t" $2 "\t" $2 "\t" $6 "\t" $7 "\t" $3}' | sort -k1,1 -k2,2n > Bd21_CGsites.bed
 grep -P "\tCHG\t" allcytosines.txt | awk '{print $1 "\t" $2 "\t" $2 "\t" $6 "\t" $7 "\t" $3}' | sort -k1,1 -k2,2n> Bd21_CHGsites.bed
 grep -P "\tCHH\t" allcytosines.txt | awk '{print $1 "\t" $2 "\t" $2 "\t" $6 "\t" $7 "\t" $3}' | sort -k1,1 -k2,2n> Bd21_CHHsites.bed
 
-bedtools makewindows -g ../rawdata/genomes/Bd21/sizes.Bd21.genome -w 100 | sort -k1,1 -k2,2n > Bd21_allwindows.bed
+bedtools makewindows -g ../rawdata/genomes/Bd21/sizes.Bd21.genome -w 100 | awk '{print $1 "\t" $2 "\t" $3-1}' | sort -k1,1 -k2,2n > Bd21_allwindows.bed
 
 bedtools intersect -wa -wb -a Bd21_allwindows.bed -b Bd21_CGsites.bed | bedtools groupby -g 1,2,3, -c 4 -o count > CGsites_100bp.bed
 bedtools intersect -wa -wb -a Bd21_allwindows.bed -b Bd21_CHGsites.bed | bedtools groupby -g 1,2,3, -c 4 -o count > CHGsites_100bp.bed
@@ -114,6 +114,12 @@ mv test Bd21_allwindows.nearestgene.bed
 
 bedtools closest -D "ref" -a Bd21_allwindows.nearestgene.bed -b ../rawdata/annotations/Bdistachyon_v2.2_MIPS_transposons.bed > Bd21_allwindows.nearestgene.nearestte.bed
 
+bedtools makewindows -g ../rawdata/genomes/Bd21/sizes.Bd21.genome -w 500000 | sort -k1,1 -k2,2n > Bd21_500k.windows.bed
+
+bedtools intersect -wa -wb -a Bd21_500k.windows.bed -b ../rawdata/annotations/Bdistachyon_192_gene.bed | bedtools groupby -g 1,2,3, -c 4 -o count > gene.density.bd21.txt
+bedtools intersect -wa -wb -a Bd21_500k.windows.bed -b ../rawdata/annotations/Bdistachyon_v2.2_MIPS_transposons.bed | bedtools groupby -g 1,2,3, -c 4 -o count > repeat.density.bd21.txt
+
+
 
 ############################
 R
@@ -147,9 +153,9 @@ chh=chh[with(chh,order(chh[,1],chh[,2])),]
 
 all=merge(all.windows,cg,by=c('V1','V2','V3'),all=T)
 all=merge(all,chg,by=c('V1','V2','V3'),all=T)
-colnames(all)=c('V1','V2','V3','CGsites','CHGsites','CHHsites','cg_prop','cg_met','_cg_unmet','cg_total','cg_site','chg_prop','chg_met','chg_unmet','chg_total','chg_site')
+colnames(all)=c('V1','V2','V3','CGsites','CHGsites','CHHsites','cg_prop','cg_met','cg_unmet','cg_total','cg_site','chg_prop','chg_met','chg_unmet','chg_total','chg_site')
 all=merge(all,chh,by=c('V1','V2','V3'),all=T)
-colnames(all)=c('V1','V2','V3','CGsites','CHGsites','CHHsites','cg_prop','cg_met','_cg_unmet','cg_total','cg_site','chg_prop','chg_met','chg_unmet','chg_total','chg_site','chh_prop','chh_met','chh_unmet','chh_total','chh_site')
+colnames(all)=c('V1','V2','V3','CGsites','CHGsites','CHHsites','cg_prop','cg_met','cg_unmet','cg_total','cg_site','chg_prop','chg_met','chg_unmet','chg_total','chg_site','chh_prop','chh_met','chh_unmet','chh_total','chh_site')
 
 cg.coverage=table(is.na(all$cg_total)==T)[1]
 chg.coverage=table(is.na(all$chg_total)==T)[1]
@@ -199,6 +205,7 @@ anno2=cbind(anno[,1:3],anno.class)
 
 #fix the NA name for transposable element fragments
 anno2$anno.class=ifelse(is.na(anno2$anno.class)==T,'TE_frag',as.character(anno2$anno.class))
+arf=all
 all=merge(all,anno2,by=c('V1','V2','V3'))
 write.table(all,'Bd21_total_tile_annotation.txt',sep='\t',row.names=F,quote=F)
 
@@ -210,7 +217,7 @@ dev.off()
 prop.met.class=prop.table(table(all$anno.class,all$window_class),margin=2)
 
 prop.anno.class=prop.table(table(all$window_class,all$anno.class),margin=2)
-prop.anno.class=prop.anno.class[,c(7,8,14,13,1,2,3,4,5,6,9,10,11,12)]
+prop.anno.class=prop.anno.class[,c(7,8,14,12,1,2,3,4,5,6,9,10,11)]
 pdf('fig1c.pdf',width=10,height=5)
 	par(mar=c(5,4,4,7),xpd=T)
 	barplot(prop.anno.class,col=c('black','#8B008B','#CD6600','#990000','#008B8B','#003399','#336600','grey'),las=2,horiz=T)
@@ -230,3 +237,57 @@ pdf('fig1a.pdf',width=10,height=5)
 	barplot(plot.table[1:2,],beside=T,horiz=T,las=1)
 	barplot(plot.table[3:4,],beside=F,horiz=T,las=1,col=c('#336600','grey','#003399','grey','#990000','grey'))
 dev.off()
+
+
+library(fields)
+library(ggplot2)
+
+pdf('fig1b.pdf',width=10,height=1)
+
+cg.chr1=subset(cg,cg$V1=='Bd1')
+x=stats.bin(cg.chr1$V2,cg.chr1$V4,300)
+arf=cbind.data.frame(x$centers,x$stats['mean',])
+colnames(arf)=c('pos','met')
+ggplot(arf,aes(pos,met)) + geom_bar(stat='identity',fill='#990000',col='#990000') + theme_classic()
+
+chg.chr1=subset(chg,chg$V1=='Bd1')
+x=stats.bin(chg.chr1$V2,chg.chr1$V4,300)
+arf=cbind.data.frame(x$centers,x$stats['mean',])
+colnames(arf)=c('pos','met')
+ggplot(arf,aes(pos,met)) + geom_bar(stat='identity',fill='#003399',col='#003399') + theme_classic() + ylim(c(0,100))
+
+chh.chr1=subset(chh,chh$V1=='Bd1')
+x=stats.bin(chh.chr1$V2,chh.chr1$V4,300)
+arf=cbind.data.frame(x$centers,x$stats['mean',])
+colnames(arf)=c('pos','met')
+ggplot(arf,aes(pos,met)) + geom_bar(stat='identity',fill='#336600',col='#336600') + theme_classic() + ylim(c(0,5))
+
+gene=read.delim('gene.density.bd21.txt',head=F)
+gene.chr1=subset(gene,gene$V1=='Bd1')
+gene.chr1$class=rep('a',nrow(gene.chr1))
+ggplot(gene.chr1,aes(V2,class)) + geom_tile(aes(fill=V4)) + scale_fill_continuous(low='black',high='yellow') + theme_classic()
+
+te=read.delim('repeat.density.bd21.txt',head=F)
+te.chr1=subset(te,te$V1=='Bd1')
+te.chr1$class=rep('a',nrow(te.chr1))
+ggplot(te.chr1,aes(V2,class)) + geom_tile(aes(fill=V4)) + scale_fill_continuous(low='black',high='red') + theme_classic()
+
+dev.off()
+
+
+quit()
+n
+####################################
+cd reference_alignments/100bp_tiles
+../../bed_to_rel_dist.sh -wig ../../rawdata/annotations/Bdistachyon_192_gene.bed Bd21 gene
+mv Bd21_gene* ../../1_Bd21_analysis/
+
+../../bed_to_rel_dist.sh -wig ../../rawdata/annotations/Bdistachyon_v2.2_MIPS_transposons.bed Bd21 TE
+mv Bd21_TE* ../../1_Bd21_analysis/
+
+cd ../../1_Bd21_analysis/
+
+mv Bd21_gene_methylation.pdf fig1d_gene.pdf
+mv Bd21_TE_methylation.pdf fig1d_TE.pdf
+
+#
