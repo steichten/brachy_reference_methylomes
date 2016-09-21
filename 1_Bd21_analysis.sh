@@ -6,8 +6,8 @@ samtools faidx Bd21Control_SNPincorp_sgr1_genome.fa
 cut -f1,2 Bd21Control_SNPincorp_sgr1_genome.fa.fai > sizes.Bd21.genome
 cd ../../../
 
-mkdir 1_Bd21_analysis
-cd 1_Bd21_analysis
+mkdir 1_Bd21_analysis_output
+cd 1_Bd21_analysis_output
 
 
 coverage2cytosine --genome_folder ../rawdata/genomes/Bd21/ -CX ../reference_alignments/Bd21_wgbspipeline_2016-09-20-14-09-31/5_output_files/Bd21_CpG.bed.bismark.cov -o allcytosines.txt
@@ -106,7 +106,7 @@ mv temp Bdistachyon_192_gene.bed
 sort -k1,1 -k2,2n Bdistachyon_v2.2_MIPS_transposons.bed > temp
 mv temp Bdistachyon_v2.2_MIPS_transposons.bed
 
-cd ../../1_Bd21_analysis
+cd ../../1_Bd21_analysis_output
 
 bedtools closest -D "ref" -a Bd21_allwindows.bed -b ../rawdata/annotations/Bdistachyon_192_gene.bed > Bd21_allwindows.nearestgene.bed
 sort -k1,1 -k2,2n Bd21_allwindows.nearestgene.bed > test
@@ -280,12 +280,12 @@ n
 ####################################
 cd reference_alignments/100bp_tiles
 ../../bed_to_rel_dist.sh -wig ../../rawdata/annotations/Bdistachyon_192_gene.bed Bd21 gene
-mv Bd21_gene* ../../1_Bd21_analysis/
+mv Bd21_gene* ../../1_Bd21_analysis_output/
 
 ../../bed_to_rel_dist.sh -wig ../../rawdata/annotations/Bdistachyon_v2.2_MIPS_transposons.bed Bd21 TE
-mv Bd21_TE* ../../1_Bd21_analysis/
+mv Bd21_TE* ../../1_Bd21_analysis_output/
 
-cd ../../1_Bd21_analysis/
+cd ../../1_Bd21_analysis_output/
 
 mv Bd21_gene_methylation.pdf fig1d_gene.pdf
 mv Bd21_TE_methylation.pdf fig1d_TE.pdf
