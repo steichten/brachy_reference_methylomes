@@ -54,5 +54,9 @@ cp ../rawdata/reference_methylomes/Koz-3_R2.fastq.gz .
 
 #pull out all the files that are useful
 
+mkdir 100bp_tiles
+find -name "*.wig" | xargs cp -t 100bp_tiles
+
+
 #cleanup (which you can do earlier)
 
