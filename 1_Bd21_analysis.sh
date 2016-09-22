@@ -11,7 +11,7 @@ mkdir 1_Bd21_analysis_output
 cd 1_Bd21_analysis_output
 
 
-coverage2cytosine --genome_folder ../rawdata/genomes/Bd21/ -CX ../reference_alignments/Bd21_wgbspipeline_2016-09-20-14-09-31/5_output_files/Bd21_CpG.bed.bismark.cov -o allcytosines.txt
+coverage2cytosine --genome_folder ../rawdata/genomes/Bd21/ -CX ../0_initial_mapping_output/Bd21_wgbspipeline_2016-09-20-14-09-31/5_output_files/Bd21_CpG.bed.bismark.cov -o allcytosines.txt
 
 grep -P "\tCG\t" allcytosines.txt | awk '{print $1 "\t" $2 "\t" $2 "\t" $6 "\t" $7 "\t" $3}' | sort -k1,1 -k2,2n > Bd21_CGsites.bed
 grep -P "\tCHG\t" allcytosines.txt | awk '{print $1 "\t" $2 "\t" $2 "\t" $6 "\t" $7 "\t" $3}' | sort -k1,1 -k2,2n> Bd21_CHGsites.bed
@@ -139,9 +139,9 @@ chg.possible=table(is.na(all.windows$CHGsites))[1]
 chh.possible=table(is.na(all.windows$CHHsites))[1]
 
 #read in Bd21 mapped tile data
-cg=read.delim('../reference_alignments/100bp_tiles/Bd21_CpG_100bp.wig',head=F,skip=1)
-chg=read.delim('../reference_alignments/100bp_tiles/Bd21_CHG_100bp.wig',head=F,skip=1)
-chh=read.delim('../reference_alignments/100bp_tiles/Bd21_CHH_100bp.wig',head=F,skip=1)
+cg=read.delim('../0_initial_mapping_output/100bp_tiles/Bd21_CpG_100bp.wig',head=F,skip=1)
+chg=read.delim('../0_initial_mapping_output/100bp_tiles/Bd21_CHG_100bp.wig',head=F,skip=1)
+chh=read.delim('../0_initial_mapping_output/100bp_tiles/Bd21_CHH_100bp.wig',head=F,skip=1)
 
 #get rid of scaffolds
 cg=cg[grep('^Bd',cg$V1),]
@@ -279,7 +279,7 @@ dev.off()
 quit()
 n
 ####################################
-cd reference_alignments/100bp_tiles
+cd 0_initial_mapping_output/100bp_tiles
 ../../bed_to_rel_dist.sh -wig ../../rawdata/annotations/Bdistachyon_192_gene.bed Bd21 gene
 mv Bd21_gene* ../../1_Bd21_analysis_output/
 
